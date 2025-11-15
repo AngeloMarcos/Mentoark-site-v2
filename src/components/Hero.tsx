@@ -7,6 +7,15 @@ export const Hero = ({ onOpenChat }: { onOpenChat: () => void }) => {
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
       
+      {/* Floating Mascot */}
+      <div className="absolute top-20 right-10 hidden xl:block animate-float z-10">
+        <img 
+          src="/images/mascote-mentoark.png" 
+          alt="Mascote MentoArk" 
+          className="w-48 h-48 object-contain drop-shadow-2xl"
+        />
+      </div>
+      
       <div className="container max-w-6xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
