@@ -126,6 +126,7 @@ export const ChatWidget = () => {
       {/* Floating Button */}
       {!isOpen && (
         <Button
+          data-chat-button
           onClick={() => setIsOpen(true)}
           className="fixed bottom-4 right-4 w-14 h-14 md:bottom-6 md:right-6 md:w-16 md:h-16 rounded-full bg-gradient-accent glow-orange shadow-2xl hover:scale-110 transition-transform z-50 p-2"
           size="icon"
