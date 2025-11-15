@@ -7,15 +7,18 @@ import { CTA } from "@/components/CTA";
 import { ChatWidget } from "@/components/ChatWidget";
 
 const Index = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const chatWidgetRef = useRef<HTMLDivElement>(null);
-
   const handleOpenChat = () => {
-    setIsChatOpen(true);
-    // Scroll to chat widget after a brief delay to allow it to render
-    setTimeout(() => {
-      chatWidgetRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    // Just scroll to where the chat widget is located
+    const chatElement = document.querySelector('[data-chat-widget]');
+    if (chatElement) {
+      chatElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    
+    // Find and click the chat button if it exists
+    const chatButton = document.querySelector('[data-chat-button]');
+    if (chatButton instanceof HTMLElement) {
+      chatButton.click();
+    }
   };
 
   return (
@@ -28,7 +31,7 @@ const Index = () => {
         <CTA onOpenChat={handleOpenChat} />
       </div>
       
-      <div ref={chatWidgetRef}>
+      <div data-chat-widget>
         <ChatWidget />
       </div>
     </div>
