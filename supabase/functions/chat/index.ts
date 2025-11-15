@@ -59,7 +59,7 @@ serve(async (req) => {
 
     // Extract reply from n8n response
     // The n8n workflow should return: { ok: true, reply: "response text" }
-    const reply = n8nData.reply || n8nData.message || "Desculpe, não consegui processar sua mensagem.";
+    const reply = n8nData.output || n8nData.reply || n8nData.message || "Desculpe, não consegui processar sua mensagem.";
 
     return new Response(
       JSON.stringify({
