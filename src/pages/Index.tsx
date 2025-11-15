@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -19,10 +20,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Hero onOpenChat={handleOpenChat} />
-      <Features />
-      <HowItWorks />
-      <CTA onOpenChat={handleOpenChat} />
+      <Header onOpenChat={handleOpenChat} />
+      <div className="pt-16 md:pt-20">
+        <Hero onOpenChat={handleOpenChat} />
+        <Features />
+        <HowItWorks />
+        <CTA onOpenChat={handleOpenChat} />
+      </div>
       
       <div ref={chatWidgetRef}>
         <ChatWidget />

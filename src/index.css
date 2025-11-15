@@ -122,4 +122,17 @@ All colors MUST be HSL.
   .glow-orange {
     box-shadow: var(--shadow-neon-orange);
   }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
 }
