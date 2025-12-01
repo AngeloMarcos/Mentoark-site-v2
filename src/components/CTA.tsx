@@ -35,7 +35,7 @@ export const CTA = ({ onOpenChat }: { onOpenChat: () => void }) => {
             </Button>
             
             <p className="text-sm text-muted-foreground mt-6">
-              💳 Sem cartão de crédito • ⚡ Configuração em minutos • 🔒 Dados 100% seguros
+              💳 Aceitamos qualquer forma de pagamento • ⚡ Configuração em minutos • 🔒 Dados 100% seguros
             </p>
           </div>
         </div>
