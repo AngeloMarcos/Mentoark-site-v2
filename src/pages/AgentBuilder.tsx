@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -6,17 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { ArrowLeft, Bot, Building2, MessageSquare, BookOpen, Settings2, Save, RotateCcw, FlaskConical } from "lucide-react";
+import { ArrowLeft, Bot, Building2, MessageSquare, BookOpen, Settings2, Save, RotateCcw, FlaskConical, Loader2, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
+import { getAgentConfig, createOrUpdateAgentConfig, isSimulationMode, type AgentConfigPayload } from "@/services/api";
 
 // Schema de validação com Zod
 const agentFormSchema = z.object({
+  id: z.string().optional(),
+  
   // 1) Dados do Cliente / Tenant
   tenantName: z.string().min(2, "Nome da empresa deve ter pelo menos 2 caracteres"),
   whatsappNumber: z.string()
@@ -63,9 +66,15 @@ const modelOptions = [
 ];
 
 const AgentBuilder = () => {
+  const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  
   const form = useForm<AgentFormData>({
     resolver: zodResolver(agentFormSchema),
     defaultValues: {
+      id: "",
       tenantName: "",
       whatsappNumber: "",
       tenantIdentifier: "",
@@ -85,21 +94,101 @@ const AgentBuilder = () => {
     },
   });
 
-  const onSubmit = (data: AgentFormData) => {
-    // TODO: Aqui será feita a integração com o backend (n8n/ERP)
-    // Por enquanto apenas logamos os dados e mostramos um toast
-    console.log("Dados do agente validados:", data);
+  // Buscar configuração existente se houver query param
+  useEffect(() => {
+    const tenant = searchParams.get("tenant");
+    const phone = searchParams.get("phone");
+    const identifier = tenant || phone;
     
-    // Simulação de salvamento
-    toast.success("Configuração salva (simulação)", {
-      description: "Os dados foram validados. Integração com backend será implementada.",
-    });
+    if (identifier) {
+      setIsLoading(true);
+      setLoadError(null);
+      
+      getAgentConfig(identifier)
+        .then((response) => {
+          if (response.success && response.data) {
+            // Preenche o formulário com os dados existentes
+            form.reset(response.data as AgentFormData);
+            toast.success("Configuração carregada", {
+              description: `Dados do agente "${response.data.agentName}" carregados com sucesso.`
+            });
+          } else if (response.error === "not_found") {
+            // Não encontrou - usuário vai criar nova configuração
+            toast.info("Nova configuração", {
+              description: "Nenhuma configuração encontrada. Preencha os dados para criar."
+            });
+          } else {
+            setLoadError(response.message || "Erro ao carregar configuração");
+            toast.error("Erro ao carregar", {
+              description: response.message
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao buscar configuração:", error);
+          setLoadError("Erro de conexão com o servidor");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [searchParams, form]);
+
+  const onSubmit = async (data: AgentFormData) => {
+    setIsSaving(true);
+    
+    try {
+      // TODO: Aqui será feita a integração real com o backend (n8n/ERP)
+      // Endpoint esperado: POST/PUT /api/agent-config
+      const response = await createOrUpdateAgentConfig(data as AgentConfigPayload);
+      
+      if (response.success) {
+        // Atualiza o ID se foi criado
+        if (response.data?.id) {
+          form.setValue("id", response.data.id);
+        }
+        
+        toast.success(response.message || "Configuração salva!", {
+          description: isSimulationMode() 
+            ? "Modo simulação: dados validados localmente. Configure VITE_API_URL para salvar no servidor."
+            : `Agente "${data.agentName}" configurado com sucesso.`
+        });
+        
+        // Log para debug em desenvolvimento
+        if (import.meta.env.VITE_APP_ENV === "development") {
+          console.log("📋 Dados do agente salvos:", response.data);
+        }
+      } else {
+        toast.error("Erro ao salvar", {
+          description: response.message || "Não foi possível salvar a configuração."
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao salvar configuração:", error);
+      toast.error("Erro de conexão", {
+        description: "Não foi possível conectar ao servidor. Tente novamente."
+      });
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleReset = () => {
     form.reset();
     toast.info("Formulário resetado");
   };
+
+  // Exibe loading enquanto carrega dados existentes
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
+          <p className="text-muted-foreground">Carregando configuração do agente...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -137,6 +226,22 @@ const AgentBuilder = () => {
             Configure como sua IA de atendimento via WhatsApp se comporta. Essas informações serão usadas 
             para personalizar as respostas automáticas do seu agente no n8n / Evolution API.
           </p>
+          
+          {/* Indicador de modo simulação */}
+          {isSimulationMode() && (
+            <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 text-sm">
+              <AlertCircle className="h-4 w-4" />
+              Modo simulação - Configure VITE_API_URL para conectar ao backend
+            </div>
+          )}
+          
+          {/* Erro de carregamento */}
+          {loadError && (
+            <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 text-destructive text-sm">
+              <AlertCircle className="h-4 w-4" />
+              {loadError}
+            </div>
+          )}
         </div>
 
         {/* Formulário com Tabs */}
@@ -286,7 +391,7 @@ const AgentBuilder = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Tom de Voz *</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Selecione o tom de voz" />
@@ -454,7 +559,7 @@ const AgentBuilder = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Modelo de IA</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
                                 <SelectTrigger>
                                   <SelectValue placeholder="Selecione o modelo" />
@@ -571,9 +676,18 @@ const AgentBuilder = () => {
 
             {/* Botões de ação */}
             <div className="flex flex-col sm:flex-row gap-3 mt-8 justify-center">
-              <Button type="submit" size="lg" className="gap-2">
-                <Save className="h-4 w-4" />
-                Salvar agente
+              <Button type="submit" size="lg" className="gap-2" disabled={isSaving}>
+                {isSaving ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Salvando...
+                  </>
+                ) : (
+                  <>
+                    <Save className="h-4 w-4" />
+                    Salvar agente
+                  </>
+                )}
               </Button>
               
               <Button 
@@ -582,6 +696,7 @@ const AgentBuilder = () => {
                 size="lg" 
                 className="gap-2"
                 onClick={handleReset}
+                disabled={isSaving}
               >
                 <RotateCcw className="h-4 w-4" />
                 Resetar
