@@ -1,203 +1,166 @@
-# Welcome to your Lovable project
+# MentoArk - Site Institucional
 
-## Project info
+Site institucional da MentoArk com automação de atendimento via WhatsApp.
 
-**URL**: https://lovable.dev/projects/65298c8c-a7c3-40f4-baaa-37f0abd2486b
+## 🚀 Tecnologias
 
-## How can I edit this code?
+- **Frontend**: Vite + React + TypeScript
+- **UI**: Tailwind CSS + shadcn/ui
+- **Forms**: react-hook-form + zod
+- **Deploy**: Docker + Nginx
 
-There are several ways of editing your application.
+## 📁 Estrutura do Projeto
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/65298c8c-a7c3-40f4-baaa-37f0abd2486b) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+├── src/
+│   ├── components/     # Componentes React
+│   ├── pages/          # Páginas (Index, AgentBuilder, etc.)
+│   ├── services/       # Módulos de API
+│   └── lib/            # Utilitários
+├── public/             # Assets estáticos
+├── Dockerfile          # Build de produção
+├── docker-compose.yml  # Orquestração Docker
+├── nginx.conf          # Configuração Nginx
+└── .env.example        # Template de variáveis
 ```
 
-**Edit a file directly in GitHub**
+## 🛠️ Desenvolvimento Local
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+# Instalar dependências
+npm install
 
-**Use GitHub Codespaces**
+# Iniciar servidor de desenvolvimento
+npm run dev
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Build de produção (local)
+npm run build
+npm run preview
+```
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/65298c8c-a7c3-40f4-baaa-37f0abd2486b) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
-
-## Deploy em Produção (Docker)
-
-Este projeto está pronto para deploy em produção usando Docker e Docker Compose.
+## 🐳 Deploy em Produção (Docker / Portainer)
 
 ### Pré-requisitos
 
-- Docker instalado (versão 20.10 ou superior)
-- Docker Compose instalado (versão 2.0 ou superior)
+- Docker (versão 20.10+)
+- Docker Compose (versão 2.0+)
+- Acesso SSH à VPS (para Portainer remoto)
 
 ### Configuração de Variáveis de Ambiente
 
-1. Copie o arquivo `.env.example` para `.env`:
+1. Copie o arquivo de exemplo:
    ```bash
    cp .env.example .env
    ```
 
-2. Edite o arquivo `.env` e preencha os valores reais:
+2. Edite com valores reais:
    ```bash
-   VITE_API_URL=https://sua-api.com
+   nano .env
+   ```
+
+   ```env
+   VITE_API_URL=https://dev-erp.aesirerp.com
    VITE_WHATSAPP_NUMBER=+55 11 99999-9999
    VITE_APP_ENV=production
    ```
 
-3. **IMPORTANTE**: Nunca commite o arquivo `.env` com valores reais. O `.gitignore` já está configurado para ignorá-lo.
+3. **⚠️ IMPORTANTE**: Nunca commite `.env` com valores de produção!
 
 ### Build e Deploy
 
-#### Opção 1: Usando Docker Compose (Recomendado)
-
-```bash
-# Build e iniciar o container
-docker-compose up -d
-
-# Ver logs
-docker-compose logs -f
-
-# Parar o container
-docker-compose down
-```
-
-A aplicação estará disponível em `http://localhost:3000`
-
-#### Opção 2: Usando Docker diretamente
+#### Via Docker Compose (Recomendado)
 
 ```bash
 # Build da imagem
-docker build -t mentoark-web .
+docker-compose build
 
-# Rodar o container
-docker run -d \
-  -p 3000:80 \
-  --name mentoark-web \
-  --env-file .env \
-  mentoark-web
+# Iniciar container em background
+docker-compose up -d
 
 # Ver logs
-docker logs -f mentoark-web
+docker-compose logs -f mentoark-site
 
-# Parar o container
-docker stop mentoark-web
-docker rm mentoark-web
+# Parar
+docker-compose down
 ```
 
-### Deploy em VPS
-
-Para fazer deploy em uma VPS (DigitalOcean, AWS, Azure, etc.):
-
-1. **Conecte via SSH** à sua VPS:
-   ```bash
-   ssh user@seu-servidor.com
-   ```
-
-2. **Clone o repositório**:
-   ```bash
-   git clone <YOUR_GIT_URL>
-   cd <YOUR_PROJECT_NAME>
-   ```
-
-3. **Configure as variáveis de ambiente**:
-   ```bash
-   cp .env.example .env
-   nano .env  # ou vim, dependendo da sua preferência
-   ```
-
-4. **Inicie com Docker Compose**:
-   ```bash
-   docker-compose up -d
-   ```
-
-5. **Configure um proxy reverso** (Nginx, Traefik, Caddy) para rotear o tráfego HTTPS para o container na porta 3000.
-
-### Atualizando a Aplicação
+#### Via Docker CLI
 
 ```bash
-# Parar os containers
+# Build
+docker build -t mentoark-site .
+
+# Run
+docker run -d \
+  --name mentoark-site \
+  -p 8080:80 \
+  --restart always \
+  mentoark-site
+
+# Logs
+docker logs -f mentoark-site
+```
+
+### Portas
+
+| Container | Porta Interna | Porta Externa |
+|-----------|--------------|---------------|
+| mentoark-site | 80 (nginx) | 8080 |
+
+Para usar outra porta, edite `docker-compose.yml`:
+```yaml
+ports:
+  - "3000:80"  # Muda para porta 3000
+```
+
+### Deploy no Portainer
+
+1. Acesse seu Portainer
+2. Vá em **Stacks** → **Add Stack**
+3. Cole o conteúdo do `docker-compose.yml`
+4. Configure variáveis de ambiente se necessário
+5. Clique em **Deploy the stack**
+
+### Proxy Reverso (Traefik/Nginx)
+
+O container expõe a porta 8080 internamente. Configure seu proxy reverso para rotear:
+
+```nginx
+# Exemplo Nginx externo
+server {
+    server_name site.mentoark.com.br;
+    
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+## 🔧 Atualizando a Aplicação
+
+```bash
+# Parar containers
 docker-compose down
 
-# Atualizar o código
-git pull
+# Atualizar código
+git pull origin main
 
 # Rebuild e reiniciar
 docker-compose up -d --build
 ```
 
-### Portas
-
-- **Porta interna do container**: 80 (nginx)
-- **Porta exposta no host**: 3000 (configurável no `docker-compose.yml`)
-
-Para usar uma porta diferente, edite o arquivo `docker-compose.yml`:
-```yaml
-ports:
-  - "8080:80"  # Mudaria para porta 8080 no host
-```
-
-### Troubleshooting
+## 🔍 Troubleshooting
 
 **Container não inicia:**
 ```bash
-docker-compose logs web
+docker-compose logs mentoark-site
 ```
 
-**Verificar se a aplicação está rodando:**
-```bash
-curl http://localhost:3000
-```
+**Rotas do React não funcionam (404):**
+- Verifique se o `nginx.conf` tem o fallback para `/index.html`
+- O arquivo já está configurado corretamente
 
 **Limpar cache do Docker:**
 ```bash
@@ -205,3 +168,18 @@ docker-compose down
 docker system prune -a
 docker-compose up -d --build
 ```
+
+## 📡 API Endpoints (Backend)
+
+O frontend espera os seguintes endpoints no `VITE_API_URL`:
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/agent-config?phone=...` | Busca config por telefone |
+| GET | `/api/agent-config?tenant=...` | Busca config por tenant |
+| POST | `/api/agent-config` | Cria nova config |
+| PUT | `/api/agent-config/:id` | Atualiza config existente |
+
+## 📝 Licença
+
+Propriedade da MentoArk. Todos os direitos reservados.

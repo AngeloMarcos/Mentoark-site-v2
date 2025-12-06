@@ -1,3 +1,12 @@
+# ===========================================
+# MentoArk - Docker Compose para Produção
+# ===========================================
+# Uso:
+#   docker-compose build
+#   docker-compose up -d
+#
+# Para Portainer: importe este arquivo ou configure via Stack
+
 services:
   mentoark-site:
     build: .
@@ -5,3 +14,20 @@ services:
     restart: always
     ports:
       - "8080:80"
+    # Variáveis de ambiente são injetadas no build
+    # Para runtime, o Vite já embute as VITE_* no bundle
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    # Limites de recursos (opcional, ajuste conforme necessário)
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.1'
+          memory: 64M
