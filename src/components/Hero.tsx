@@ -26,7 +26,7 @@ export const Hero = ({ onOpenChat }: { onOpenChat: () => void }) => {
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              Transforme seu <span className="bg-gradient-primary bg-clip-text text-transparent">WhatsApp</span> em uma
+              Transforme seu <span className="bg-gradient-primary bg-clip-text text-transparent">WhatsApp</span> em um
               assistente virtual
             </h1>
 
