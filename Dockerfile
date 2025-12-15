@@ -49,8 +49,9 @@ FROM nginx:alpine
 # Remove configuração padrão do Nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copia configuração customizada do Nginx (SPA routing)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copia configuração customizada do Nginx (substitui nginx.conf principal)
+# CRÍTICO: nginx.conf deve incluir 'include /etc/nginx/mime.types;'
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copia os arquivos buildados
 COPY --from=build /app/dist /usr/share/nginx/html
