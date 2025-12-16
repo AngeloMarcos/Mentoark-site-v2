@@ -15,7 +15,7 @@ export const Footer = () => {
               className="h-8 object-contain"
             />
             <p className="text-sm text-muted-foreground">
-              Automação inteligente no WhatsApp para transformar seu negócio digital.
+              Automação no WhatsApp para transformar seu negócio digital.
             </p>
           </div>
 

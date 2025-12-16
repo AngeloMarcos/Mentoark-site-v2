@@ -12,7 +12,7 @@ export const Header = ({ onOpenChat }: HeaderProps) => {
       <div className="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
         <img 
           src="/images/logo-mentoark.png" 
-          alt="MentoArk - Automação Inteligente" 
+          alt="MentoArk - Automação no WhatsApp" 
           className="h-8 md:h-10 object-contain"
         />
         
@@ -33,7 +33,7 @@ export const Header = ({ onOpenChat }: HeaderProps) => {
             className="bg-gradient-accent glow-orange text-sm md:text-base"
             size="sm"
           >
-            Falar com IA
+            Falar Conosco
           </Button>
         </div>
       </div>
