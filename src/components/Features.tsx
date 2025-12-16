@@ -3,8 +3,8 @@ import { Bot, Code, TrendingUp, Zap, Shield, BarChart3 } from "lucide-react";
 const features = [
   {
     icon: Bot,
-    title: "Automação com IA",
-    description: "Assistentes virtuais inteligentes que atendem seus clientes 24/7 no WhatsApp"
+    title: "Automação WhatsApp",
+    description: "Assistentes virtuais que atendem seus clientes 24/7 no WhatsApp"
   },
   {
     icon: Code,

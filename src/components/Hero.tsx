@@ -22,7 +22,7 @@ export const Hero = ({ onOpenChat }: { onOpenChat: () => void }) => {
           <div className="text-center lg:text-left space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-primary/30 mb-4">
               <Bot className="w-4 h-4 text-primary" />
-              <span className="text-sm text-muted-foreground">Automação Inteligente no WhatsApp</span>
+              <span className="text-sm text-muted-foreground">Automação no WhatsApp</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
@@ -31,7 +31,7 @@ export const Hero = ({ onOpenChat }: { onOpenChat: () => void }) => {
             </h1>
 
             <p className="text-xl text-muted-foreground max-w-2xl">
-              Automação com IA, desenvolvimento de sites e tráfego pago. Tudo que você precisa para escalar seu negócio
+              Automação, desenvolvimento de sites e tráfego pago. Tudo que você precisa para escalar seu negócio
               digital.
             </p>
 
@@ -79,7 +79,7 @@ export const Hero = ({ onOpenChat }: { onOpenChat: () => void }) => {
 
                 <div className="flex items-start gap-3 justify-end">
                   <div className="bg-primary/20 rounded-2xl p-4 max-w-[80%]">
-                    <p className="text-sm">Quero automatizar meu WhatsApp com IA</p>
+                    <p className="text-sm">Quero automatizar meu WhatsApp</p>
                   </div>
                 </div>
 
@@ -91,7 +91,7 @@ export const Hero = ({ onOpenChat }: { onOpenChat: () => void }) => {
                     <p className="text-sm">Excelente escolha! Com nossa automação você pode:</p>
                     <ul className="text-sm mt-2 space-y-1">
                       <li>• Responder clientes automaticamente</li>
-                      <li>• Qualificar leads com IA</li>
+                      <li>• Qualificar leads</li>
                       <li>• Agendar demonstrações</li>
                       <li>• Integrar com seu CRM</li>
                     </ul>
