@@ -27,7 +27,10 @@ services:
     container_name: mentoark-site
     restart: always
     ports:
-       - "80:80"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/mentoark.com.br:/certs:ro
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
       interval: 30s
