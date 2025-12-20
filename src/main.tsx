@@ -1,3 +1,4 @@
+import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -16,4 +17,8 @@ if (appEnv === 'production' && !import.meta.env.VITE_API_URL) {
   console.warn('⚠️ VITE_API_URL not configured for production environment');
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
