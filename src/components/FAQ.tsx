@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const faqs = [
   {
@@ -34,34 +35,38 @@ export const FAQ = () => {
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none opacity-20" />
       
       <div className="container max-w-3xl mx-auto relative z-10">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Perguntas{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Frequentes
-            </span>
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Tire suas dúvidas sobre a automação MentoArk
-          </p>
-        </div>
+        <ScrollReveal animation="fade-up">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              Perguntas{" "}
+              <span className="bg-gradient-primary bg-clip-text text-transparent">
+                Frequentes
+              </span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Tire suas dúvidas sobre a automação MentoArk
+            </p>
+          </div>
+        </ScrollReveal>
         
-        <Accordion type="single" collapsible className="space-y-4 animate-fade-in-up animation-delay-200">
-          {faqs.map((faq, index) => (
-            <AccordionItem 
-              key={index} 
-              value={`item-${index}`}
-              className="glass rounded-2xl px-6 border-border/50 data-[state=open]:border-primary/50 transition-colors"
-            >
-              <AccordionTrigger className="text-left text-foreground hover:text-primary hover:no-underline py-6">
-                <span className="font-semibold">{faq.question}</span>
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-6">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <ScrollReveal animation="fade-up" delay={200}>
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem 
+                key={index} 
+                value={`item-${index}`}
+                className="glass rounded-2xl px-6 border-border/50 data-[state=open]:border-primary/50 transition-colors"
+              >
+                <AccordionTrigger className="text-left text-foreground hover:text-primary hover:no-underline py-6">
+                  <span className="font-semibold">{faq.question}</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import { Stethoscope, Scale, Building2, Calendar, UserCheck, FileText, Home, MessageSquare, ClipboardCheck } from "lucide-react";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const useCases = [
   {
@@ -45,50 +46,54 @@ export const UseCases = () => {
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none opacity-30" />
       
       <div className="container max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Soluções para{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Seu Segmento
-            </span>
-          </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Automação personalizada para cada tipo de negócio
-          </p>
-        </div>
+        <ScrollReveal animation="fade-up">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              Soluções para{" "}
+              <span className="bg-gradient-primary bg-clip-text text-transparent">
+                Seu Segmento
+              </span>
+            </h2>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Automação personalizada para cada tipo de negócio
+            </p>
+          </div>
+        </ScrollReveal>
         
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {useCases.map((useCase, index) => {
             const Icon = useCase.icon;
             return (
-              <div 
+              <ScrollReveal 
                 key={useCase.id}
-                className="glass rounded-3xl p-6 lg:p-8 hover:border-primary/50 transition-all duration-300 group animate-fade-in-up"
-                style={{ animationDelay: `${index * 100}ms` }}
+                animation="fade-up"
+                delay={index * 150}
               >
-                {/* Header */}
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${useCase.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                  <Icon className="w-8 h-8 text-primary-foreground" />
+                <div className="glass rounded-3xl p-6 lg:p-8 hover:border-primary/50 transition-all duration-300 group h-full">
+                  {/* Header */}
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${useCase.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                    <Icon className="w-8 h-8 text-primary-foreground" />
+                  </div>
+                  
+                  <h3 className="text-xl lg:text-2xl font-bold mb-3 text-foreground">{useCase.title}</h3>
+                  <p className="text-muted-foreground mb-6">{useCase.description}</p>
+                  
+                  {/* Features */}
+                  <ul className="space-y-4">
+                    {useCase.features.map((feature, featureIndex) => {
+                      const FeatureIcon = feature.icon;
+                      return (
+                        <li key={featureIndex} className="flex items-start gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <FeatureIcon className="w-4 h-4 text-primary" />
+                          </div>
+                          <span className="text-sm text-foreground">{feature.text}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-                
-                <h3 className="text-xl lg:text-2xl font-bold mb-3 text-foreground">{useCase.title}</h3>
-                <p className="text-muted-foreground mb-6">{useCase.description}</p>
-                
-                {/* Features */}
-                <ul className="space-y-4">
-                  {useCase.features.map((feature, featureIndex) => {
-                    const FeatureIcon = feature.icon;
-                    return (
-                      <li key={featureIndex} className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <FeatureIcon className="w-4 h-4 text-primary" />
-                        </div>
-                        <span className="text-sm text-foreground">{feature.text}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

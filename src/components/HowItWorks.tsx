@@ -1,4 +1,5 @@
 import { MessageSquare, Cpu, Settings, CheckCircle, ArrowRight } from "lucide-react";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const steps = [
   {
@@ -38,17 +39,19 @@ export const HowItWorks = () => {
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none opacity-50" />
       
       <div className="container max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Como{" "}
-            <span className="bg-gradient-accent bg-clip-text text-transparent">
-              Funciona
-            </span>
-          </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Tudo acontece sozinho, sem precisar de funcionários digitando ou conferindo dados
-          </p>
-        </div>
+        <ScrollReveal animation="fade-up">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              Como{" "}
+              <span className="bg-gradient-accent bg-clip-text text-transparent">
+                Funciona
+              </span>
+            </h2>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Tudo acontece sozinho, sem precisar de funcionários digitando ou conferindo dados
+            </p>
+          </div>
+        </ScrollReveal>
         
         {/* Desktop Flow */}
         <div className="hidden lg:block">
@@ -64,10 +67,11 @@ export const HowItWorks = () => {
               const Icon = step.icon;
               const isLast = index === steps.length - 1;
               return (
-                <div 
+                <ScrollReveal 
                   key={index} 
-                  className="relative z-10 animate-fade-in-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  animation="scale" 
+                  delay={index * 150}
+                  className="relative z-10"
                 >
                   <div className={`glass rounded-3xl p-6 text-center hover:border-${step.color}/50 transition-all duration-300 h-full`}>
                     <div className="relative inline-block mb-6">
@@ -82,7 +86,7 @@ export const HowItWorks = () => {
                     <h3 className="text-lg font-bold mb-3 text-foreground">{step.title}</h3>
                     <p className="text-sm text-muted-foreground">{step.description}</p>
                   </div>
-                </div>
+                </ScrollReveal>
               );
             })}
           </div>
@@ -94,7 +98,7 @@ export const HowItWorks = () => {
             const Icon = step.icon;
             const isLast = index === steps.length - 1;
             return (
-              <div key={index} className="relative animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
+              <ScrollReveal key={index} animation="slide-right" delay={index * 100}>
                 <div className="glass rounded-2xl p-6 flex items-start gap-4">
                   <div className="relative flex-shrink-0">
                     <div className={`w-16 h-16 rounded-xl ${isLast ? 'bg-gradient-accent' : 'bg-gradient-primary'} flex items-center justify-center`}>
@@ -117,7 +121,7 @@ export const HowItWorks = () => {
                     <ArrowRight className="w-6 h-6 text-primary rotate-90" />
                   </div>
                 )}
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>
