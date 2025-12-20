@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
+import { StatsCounter } from "@/components/StatsCounter";
 import { UseCases } from "@/components/UseCases";
 import { Differentials } from "@/components/Differentials";
 import { Benefits } from "@/components/Benefits";
@@ -30,6 +31,7 @@ const Index = () => {
       <main className="pt-16 md:pt-20">
         <Hero onOpenChat={handleOpenChat} />
         <HowItWorks />
+        <StatsCounter />
         <UseCases />
         <Differentials />
         <Benefits />
