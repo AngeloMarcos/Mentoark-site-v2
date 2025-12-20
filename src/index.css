@@ -2,12 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* MentoArk Design System - All colors MUST be HSL */
 
 @layer base {
   :root {
+    /* MentoArk Brand Colors */
     --background: 222 47% 5%;
     --foreground: 210 40% 98%;
 
@@ -17,17 +16,20 @@ All colors MUST be HSL.
     --popover: 222 47% 8%;
     --popover-foreground: 210 40% 98%;
 
+    /* Primary - Azul vibrante */
     --primary: 217 91% 60%;
     --primary-foreground: 222 47% 5%;
 
+    /* Secondary - Azul escuro */
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
 
+    /* Accent - Laranja MentoArk */
     --accent: 24 95% 53%;
-    --accent-foreground: 222 47% 5%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
@@ -38,28 +40,28 @@ All colors MUST be HSL.
 
     --radius: 1rem;
     
+    /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(217 91% 70%));
     --gradient-accent: linear-gradient(135deg, hsl(24 95% 53%), hsl(24 95% 63%));
     --gradient-glow: radial-gradient(circle at 50% 0%, hsl(217 91% 60% / 0.2), transparent 50%);
+    --gradient-hero: linear-gradient(180deg, hsl(222 47% 5%) 0%, hsl(222 47% 8%) 100%);
+    --gradient-section: linear-gradient(180deg, hsl(222 47% 8%) 0%, hsl(222 47% 5%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(217 91% 60% / 0.1), hsl(24 95% 53% / 0.1));
     
+    /* Shadows */
     --shadow-neon-blue: 0 0 40px hsl(217 91% 60% / 0.5);
     --shadow-neon-orange: 0 0 40px hsl(24 95% 53% / 0.5);
     --shadow-elegant: 0 10px 40px -10px hsl(217 91% 60% / 0.3);
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
 
+    /* Sidebar */
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -83,7 +85,7 @@ All colors MUST be HSL.
     --muted-foreground: 215 20% 65%;
 
     --accent: 24 95% 53%;
-    --accent-foreground: 222 47% 5%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
@@ -91,6 +93,7 @@ All colors MUST be HSL.
     --border: 217 33% 17%;
     --input: 217 33% 17%;
     --ring: 217 91% 60%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -111,10 +114,20 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
   
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Glass Effect */
   .glass {
     @apply backdrop-blur-lg bg-card/50 border border-border/50;
   }
   
+  .glass-strong {
+    @apply backdrop-blur-xl bg-card/70 border border-border/60;
+  }
+  
+  /* Glow Effects */
   .glow-blue {
     box-shadow: var(--shadow-neon-blue);
   }
@@ -123,6 +136,17 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-neon-orange);
   }
   
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+}
+
+@layer utilities {
+  /* Animations */
   @keyframes float {
     0%, 100% {
       transform: translateY(0px);
@@ -132,7 +156,103 @@ All colors MUST be HSL.
     }
   }
   
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-in-right {
+    0% {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(217 91% 60% / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(217 91% 60% / 0.6);
+    }
+  }
+  
+  @keyframes flow-line {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+  
   .animate-float {
     animation: float 4s ease-in-out infinite;
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+  }
+  
+  .animate-slide-in-right {
+    animation: slide-in-right 0.5s ease-out forwards;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  /* Animation delays */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+  
+  /* Gradient backgrounds */
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .bg-gradient-section {
+    background: var(--gradient-section);
+  }
+  
+  .bg-gradient-cta {
+    background: var(--gradient-cta);
+  }
+  
+  /* Flow line animation for process */
+  .flow-line {
+    background: linear-gradient(90deg, 
+      hsl(217 91% 60% / 0.3) 0%, 
+      hsl(217 91% 60%) 50%, 
+      hsl(217 91% 60% / 0.3) 100%
+    );
+    background-size: 200% 100%;
+    animation: flow-line 2s linear infinite;
   }
 }
