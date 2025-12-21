@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useSmoothNavigation } from "@/hooks/useSmoothNavigation";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 interface HeaderProps {
   onOpenChat: () => void;
@@ -14,15 +16,21 @@ const navLinks = [
   { label: "FAQ", href: "#faq" },
 ];
 
+const sectionIds = ["o-que-fazemos", "solucoes", "casos-de-uso", "faq"];
+
 export const Header = ({ onOpenChat }: HeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { navigateTo } = useSmoothNavigation({ offset: 80 });
+  const activeSection = useActiveSection({ sectionIds, offset: 100 });
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleNavClick = (href: string) => {
+    navigateTo(href);
     setMobileMenuOpen(false);
+  };
+
+  const isActive = (href: string) => {
+    const id = href.replace('#', '');
+    return activeSection === id;
   };
 
   return (
@@ -43,8 +51,12 @@ export const Header = ({ onOpenChat }: HeaderProps) => {
             {navLinks.map((link) => (
               <button
                 key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => handleNavClick(link.href)}
+                className={`text-sm transition-colors py-2 ${
+                  isActive(link.href)
+                    ? 'nav-link-active text-primary'
+                    : 'nav-link text-muted-foreground hover:text-foreground'
+                }`}
               >
                 {link.label}
               </button>
@@ -77,8 +89,12 @@ export const Header = ({ onOpenChat }: HeaderProps) => {
               {navLinks.map((link) => (
                 <button
                   key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className="py-3 px-4 text-left text-foreground hover:bg-primary/10 rounded-lg transition-colors"
+                  onClick={() => handleNavClick(link.href)}
+                  className={`py-3 px-4 text-left rounded-lg transition-colors ${
+                    isActive(link.href)
+                      ? 'bg-primary/20 text-primary'
+                      : 'text-foreground hover:bg-primary/10'
+                  }`}
                 >
                   {link.label}
                 </button>

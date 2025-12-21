@@ -9,6 +9,8 @@ import { FAQ } from "@/components/FAQ";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
 import { ChatWidget } from "@/components/ChatWidget";
+import { ScrollProgressBar } from "@/components/ScrollProgressBar";
+import { SectionTransition } from "@/components/SectionTransition";
 
 const Index = () => {
   const handleOpenChat = () => {
@@ -25,16 +27,32 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <ScrollProgressBar />
       <Header onOpenChat={handleOpenChat} />
       
       <main className="pt-16 md:pt-20">
         <Hero onOpenChat={handleOpenChat} />
-        <WhatWeDo />
-        <Solutions onOpenChat={handleOpenChat} />
+        
+        <SectionTransition id="o-que-fazemos">
+          <WhatWeDo />
+        </SectionTransition>
+        
+        <SectionTransition id="solucoes">
+          <Solutions onOpenChat={handleOpenChat} />
+        </SectionTransition>
+        
         <WhyMentoArk />
-        <UseCases />
+        
+        <SectionTransition id="casos-de-uso">
+          <UseCases />
+        </SectionTransition>
+        
         <Testimonials />
-        <FAQ />
+        
+        <SectionTransition id="faq">
+          <FAQ />
+        </SectionTransition>
+        
         <FinalCTA onOpenChat={handleOpenChat} />
       </main>
       

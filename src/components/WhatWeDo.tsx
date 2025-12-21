@@ -26,7 +26,7 @@ const solutions = [
 
 export const WhatWeDo = () => {
   return (
-    <section id="o-que-fazemos" className="py-24 px-4 bg-gradient-section relative overflow-hidden">
+    <div className="py-24 px-4 bg-gradient-section relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none opacity-20" />
       
       <div className="container max-w-6xl mx-auto relative z-10">
@@ -81,6 +81,6 @@ export const WhatWeDo = () => {
           </div>
         </ScrollReveal>
       </div>
-    </section>
+    </div>
   );
 };

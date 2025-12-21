@@ -174,7 +174,7 @@ const AnimatedBenefit = ({ benefit, index, isVisible }: {
 
 export const Solutions = ({ onOpenChat }: SolutionProps) => {
   return (
-    <section id="solucoes" className="py-24 px-4 relative overflow-hidden">
+    <div className="py-24 px-4 relative overflow-hidden">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none opacity-30" />
       <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
@@ -217,7 +217,7 @@ export const Solutions = ({ onOpenChat }: SolutionProps) => {
           })}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
