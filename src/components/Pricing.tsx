@@ -1,7 +1,15 @@
-import { Check, Star, Zap, Crown } from "lucide-react";
+import { Check, Star, Zap, Crown, MessageSquare, Briefcase, Wrench, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 import { useCountUp } from "@/hooks/useCountUp";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface PricingProps {
   onOpenChat: () => void;
@@ -63,9 +71,57 @@ const pricingPlans = [
   }
 ];
 
+const comparisonFeatures = [
+  {
+    category: "Atendimento",
+    icon: MessageSquare,
+    features: [
+      { name: "IA 24/7 no WhatsApp", basic: true, pro: true, enterprise: true },
+      { name: "Respostas automatizadas", basic: true, pro: true, enterprise: true },
+      { name: "Multi-atendentes", basic: false, pro: true, enterprise: true },
+      { name: "Fluxos personalizados", basic: false, pro: false, enterprise: true },
+    ]
+  },
+  {
+    category: "CRM & Gestão",
+    icon: Briefcase,
+    features: [
+      { name: "PDV (Ponto de Venda)", basic: false, pro: true, enterprise: true },
+      { name: "Prontuário para Clínicas", basic: false, pro: true, enterprise: true },
+      { name: "Sistema Financeiro", basic: false, pro: true, enterprise: true },
+      { name: "Relatórios avançados", basic: false, pro: false, enterprise: true },
+    ]
+  },
+  {
+    category: "Suporte & Manutenção",
+    icon: Wrench,
+    features: [
+      { name: "Manutenção Mensal", basic: true, pro: true, enterprise: true },
+      { name: "Atualizações inclusas", basic: true, pro: true, enterprise: true },
+      { name: "Suporte via chat", basic: true, pro: true, enterprise: true },
+      { name: "Suporte prioritário", basic: false, pro: true, enterprise: true },
+      { name: "Suporte dedicado", basic: false, pro: false, enterprise: true },
+      { name: "Manutenção Personalizada", basic: false, pro: false, enterprise: true },
+      { name: "Customizações sob demanda", basic: false, pro: false, enterprise: true },
+    ]
+  }
+];
+
 const PriceDisplay = ({ price }: { price: number }) => {
   const count = useCountUp(price, true, { duration: 1500 });
   return <>{count.toLocaleString('pt-BR')}</>;
+};
+
+const FeatureCheck = ({ included, highlight }: { included: boolean; highlight?: 'pro' | 'enterprise' }) => {
+  if (included) {
+    return (
+      <Check className={`w-5 h-5 mx-auto ${
+        highlight === 'pro' ? 'text-primary' : 
+        highlight === 'enterprise' ? 'text-accent' : 'text-green-500'
+      }`} />
+    );
+  }
+  return <X className="w-5 h-5 mx-auto text-muted-foreground/40" />;
 };
 
 export const Pricing = ({ onOpenChat }: PricingProps) => {
@@ -188,6 +244,99 @@ export const Pricing = ({ onOpenChat }: PricingProps) => {
             </ScrollReveal>
           ))}
         </div>
+
+        {/* Comparison Table */}
+        <ScrollReveal animation="fade-up" delay={300}>
+          <div className="mt-20 max-w-5xl mx-auto">
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-8">
+              Compare os Planos
+            </h3>
+            
+            <div className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm overflow-hidden">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                      <TableHead className="w-[280px] text-foreground font-semibold py-4">
+                        Funcionalidades
+                      </TableHead>
+                      <TableHead className="text-center text-foreground font-semibold py-4 w-[120px]">
+                        <div className="flex flex-col items-center gap-1">
+                          <Zap className="w-5 h-5 text-primary/70" />
+                          <span>Básico</span>
+                          <span className="text-xs text-muted-foreground font-normal">R$ 450/mês</span>
+                        </div>
+                      </TableHead>
+                      <TableHead className="text-center font-semibold py-4 w-[140px] bg-primary/10 border-x-2 border-primary/30">
+                        <div className="flex flex-col items-center gap-1">
+                          <Star className="w-5 h-5 text-primary" />
+                          <span className="text-primary">Profissional</span>
+                          <span className="text-xs text-primary/70 font-normal">R$ 850/mês</span>
+                        </div>
+                      </TableHead>
+                      <TableHead className="text-center text-foreground font-semibold py-4 w-[120px]">
+                        <div className="flex flex-col items-center gap-1">
+                          <Crown className="w-5 h-5 text-accent" />
+                          <span>Enterprise</span>
+                          <span className="text-xs text-muted-foreground font-normal">R$ 1.200/mês</span>
+                        </div>
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {comparisonFeatures.map((category) => (
+                      <>
+                        {/* Category Header */}
+                        <TableRow key={category.category} className="bg-muted/30 hover:bg-muted/30">
+                          <TableCell colSpan={4} className="py-3">
+                            <div className="flex items-center gap-2 font-semibold text-foreground">
+                              <category.icon className="w-4 h-4 text-primary" />
+                              {category.category}
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                        
+                        {/* Feature Rows */}
+                        {category.features.map((feature) => (
+                          <TableRow key={feature.name} className="hover:bg-muted/20 transition-colors">
+                            <TableCell className="text-sm text-muted-foreground py-3 pl-8">
+                              {feature.name}
+                            </TableCell>
+                            <TableCell className="text-center py-3">
+                              <FeatureCheck included={feature.basic} />
+                            </TableCell>
+                            <TableCell className="text-center py-3 bg-primary/5 border-x border-primary/20">
+                              <FeatureCheck included={feature.pro} highlight="pro" />
+                            </TableCell>
+                            <TableCell className="text-center py-3">
+                              <FeatureCheck included={feature.enterprise} highlight="enterprise" />
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </>
+                    ))}
+                    
+                    {/* Pricing Row */}
+                    <TableRow className="bg-muted/40 hover:bg-muted/40 border-t-2 border-border/50">
+                      <TableCell className="font-semibold text-foreground py-4">
+                        Taxa de Implantação
+                      </TableCell>
+                      <TableCell className="text-center py-4 text-sm text-muted-foreground">
+                        Aplicável
+                      </TableCell>
+                      <TableCell className="text-center py-4 text-sm text-muted-foreground bg-primary/5 border-x border-primary/20">
+                        Aplicável
+                      </TableCell>
+                      <TableCell className="text-center py-4">
+                        <span className="text-accent font-bold text-sm">ISENTA</span>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
 
         {/* Bottom Note */}
         <ScrollReveal animation="fade-up" delay={500}>
