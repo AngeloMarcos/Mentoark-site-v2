@@ -54,7 +54,7 @@ const useCases = [
 
 export const UseCases = () => {
   return (
-    <section id="casos-de-uso" className="py-24 px-4 relative">
+    <div className="py-24 px-4 relative">
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none opacity-30" />
       
       <div className="container max-w-6xl mx-auto relative z-10">
@@ -113,6 +113,6 @@ export const UseCases = () => {
           })}
         </div>
       </div>
-    </section>
+    </div>
   );
 };

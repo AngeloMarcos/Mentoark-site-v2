@@ -31,7 +31,7 @@ const faqs = [
 
 export const FAQ = () => {
   return (
-    <section id="faq" className="py-24 px-4 relative">
+    <div className="py-24 px-4 relative">
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none opacity-20" />
       
       <div className="container max-w-3xl mx-auto relative z-10">
@@ -68,6 +68,6 @@ export const FAQ = () => {
           </Accordion>
         </ScrollReveal>
       </div>
-    </section>
+    </div>
   );
 };
