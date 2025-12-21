@@ -156,12 +156,13 @@ export const Pricing = ({ onOpenChat }: PricingProps) => {
               delay={index * 150}
             >
               <div
-                className={`relative h-full rounded-2xl p-6 lg:p-8 transition-all duration-500 group
+                className={`relative h-full rounded-2xl p-6 lg:p-8 transition-all duration-300 ease-out group cursor-pointer
                   ${plan.popular
-                    ? "bg-gradient-to-b from-primary/20 to-primary/5 border-2 border-primary shadow-xl shadow-primary/20 scale-105 z-10"
-                    : "bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 hover:shadow-lg"
+                    ? "bg-gradient-to-b from-primary/20 to-primary/5 border-2 border-primary shadow-xl shadow-primary/20 scale-105 z-10 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/40"
+                    : plan.implantationFree
+                      ? "bg-card/50 backdrop-blur-sm border border-border/50 ring-2 ring-accent/30 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-accent/30 hover:border-accent/50"
+                      : "bg-card/50 backdrop-blur-sm border border-border/50 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/25 hover:border-primary/50"
                   }
-                  ${plan.implantationFree ? "ring-2 ring-accent/30" : ""}
                 `}
               >
                 {/* Popular Badge */}
