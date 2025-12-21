@@ -8,24 +8,24 @@ import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const faqs = [
   {
+    question: "Posso contratar apenas um sistema?",
+    answer: "Sim! Nossas soluções são modulares. Você pode contratar apenas a automação de WhatsApp, apenas o sistema para clínicas, o sistema comercial ou o financeiro. Use o que fizer sentido para o seu negócio."
+  },
+  {
+    question: "A automação funciona 24 horas?",
+    answer: "Sim! A automação de WhatsApp funciona ininterruptamente, 24 horas por dia, 7 dias por semana. Seus clientes podem ser atendidos, agendar consultas e tirar dúvidas a qualquer momento, inclusive em feriados e finais de semana."
+  },
+  {
     question: "Preciso mudar meu sistema atual?",
-    answer: "Não! A MentoArk se integra ao sistema que você já usa. Seja prontuário eletrônico, CRM, sistema financeiro ou qualquer outro — nós conectamos tudo sem você precisar mudar nada na sua operação."
+    answer: "Não necessariamente! A MentoArk pode se integrar ao sistema que você já usa. Mas se você quiser uma solução completa, oferecemos sistemas próprios para clínicas, comercial e financeiro que funcionam perfeitamente integrados."
   },
   {
-    question: "Funciona 24 horas por dia?",
-    answer: "Sim! Sua automação funciona ininterruptamente, 24 horas por dia, 7 dias por semana. Seus clientes podem agendar, tirar dúvidas e receber atendimento a qualquer momento, inclusive feriados e finais de semana."
+    question: "É difícil de usar?",
+    answer: "Não! Todos os nossos sistemas foram pensados para serem simples e intuitivos. Você não precisa de conhecimento técnico para operar. E nossa equipe de suporte está sempre disponível para ajudar."
   },
   {
-    question: "É personalizado para meu tipo de negócio?",
-    answer: "Com certeza! Cada automação é desenvolvida especificamente para o seu negócio. Analisamos seus processos, entendemos suas necessidades e criamos fluxos que fazem sentido para sua realidade."
-  },
-  {
-    question: "Posso integrar com sistema financeiro e de vendas?",
-    answer: "Sim! Integramos com sistemas de pagamento, emissão de notas, controle de estoque, PDV e muito mais. Quando um cliente faz uma compra pelo WhatsApp, tudo é registrado automaticamente nos seus sistemas."
-  },
-  {
-    question: "É difícil de usar depois de implementado?",
-    answer: "Não! Após a implementação, a automação funciona sozinha. Você não precisa de conhecimento técnico para operar. E se precisar de ajustes, nossa equipe de suporte está sempre disponível para ajudar."
+    question: "Posso integrar tudo depois?",
+    answer: "Com certeza! Você pode começar com uma solução e depois adicionar outras conforme sua necessidade. Todas as nossas soluções foram desenvolvidas para funcionarem integradas quando você precisar."
   }
 ];
 
@@ -44,7 +44,7 @@ export const FAQ = () => {
               </span>
             </h2>
             <p className="text-lg text-muted-foreground">
-              Tire suas dúvidas sobre a automação MentoArk
+              Tire suas dúvidas sobre as soluções MentoArk
             </p>
           </div>
         </ScrollReveal>

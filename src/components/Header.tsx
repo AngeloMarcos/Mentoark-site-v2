@@ -8,9 +8,9 @@ interface HeaderProps {
 }
 
 const navLinks = [
-  { label: "Como Funciona", href: "#como-funciona" },
-  { label: "Soluções", href: "#casos-de-uso" },
-  { label: "Benefícios", href: "#beneficios" },
+  { label: "O que Fazemos", href: "#o-que-fazemos" },
+  { label: "Soluções", href: "#solucoes" },
+  { label: "Casos de Uso", href: "#casos-de-uso" },
   { label: "FAQ", href: "#faq" },
 ];
 
@@ -33,7 +33,7 @@ export const Header = ({ onOpenChat }: HeaderProps) => {
           <Link to="/" className="flex-shrink-0">
             <img 
               src="/images/logo-mentoark.png" 
-              alt="MentoArk - Automação no WhatsApp" 
+              alt="MentoArk - Automação e Sistemas Inteligentes" 
               className="h-8 md:h-10 object-contain"
             />
           </Link>
