@@ -5,6 +5,7 @@ import { Solutions } from "@/components/Solutions";
 import { WhyMentoArk } from "@/components/WhyMentoArk";
 import { UseCases } from "@/components/UseCases";
 import { Testimonials } from "@/components/Testimonials";
+import { Pricing } from "@/components/Pricing";
 import { FAQ } from "@/components/FAQ";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
@@ -48,6 +49,10 @@ const Index = () => {
         </SectionTransition>
         
         <Testimonials />
+        
+        <SectionTransition id="precos">
+          <Pricing onOpenChat={handleOpenChat} />
+        </SectionTransition>
         
         <SectionTransition id="faq">
           <FAQ />

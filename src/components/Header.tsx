@@ -13,10 +13,11 @@ const navLinks = [
   { label: "O que Fazemos", href: "#o-que-fazemos" },
   { label: "Soluções", href: "#solucoes" },
   { label: "Casos de Uso", href: "#casos-de-uso" },
+  { label: "Preços", href: "#precos" },
   { label: "FAQ", href: "#faq" },
 ];
 
-const sectionIds = ["o-que-fazemos", "solucoes", "casos-de-uso", "faq"];
+const sectionIds = ["o-que-fazemos", "solucoes", "casos-de-uso", "precos", "faq"];
 
 export const Header = ({ onOpenChat }: HeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
