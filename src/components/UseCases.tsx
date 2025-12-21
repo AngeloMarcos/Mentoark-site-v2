@@ -1,4 +1,4 @@
-import { Stethoscope, Scale, Building2, Calendar, UserCheck, FileText, Home, MessageSquare, ClipboardCheck } from "lucide-react";
+import { Stethoscope, Scale, Building2, ShoppingCart, Calendar, UserCheck, FileText, Home, MessageSquare, ClipboardCheck, CreditCard } from "lucide-react";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const useCases = [
@@ -6,7 +6,7 @@ const useCases = [
     id: "clinicas",
     icon: Stethoscope,
     title: "Clínicas e Consultórios",
-    description: "Automatize o atendimento e ganhe tempo para cuidar dos pacientes",
+    description: "Agendamento automático, confirmação e prontuário organizado",
     features: [
       { icon: Calendar, text: "Agendamento automático de consultas" },
       { icon: MessageSquare, text: "Confirmação e lembrete de consultas" },
@@ -18,7 +18,7 @@ const useCases = [
     id: "advogados",
     icon: Scale,
     title: "Escritórios de Advocacia",
-    description: "Filtre clientes e organize sua agenda sem perder oportunidades",
+    description: "Filtragem de clientes, agendamento e organização",
     features: [
       { icon: UserCheck, text: "Filtragem automática de clientes" },
       { icon: ClipboardCheck, text: "Consulta de andamento processual" },
@@ -30,13 +30,25 @@ const useCases = [
     id: "imobiliarias",
     icon: Building2,
     title: "Imobiliárias",
-    description: "Qualifique leads e agende visitas automaticamente",
+    description: "Qualificação de leads, envio de imóveis e agendamento",
     features: [
       { icon: UserCheck, text: "Qualificação automática de leads" },
       { icon: Home, text: "Envio personalizado de imóveis" },
       { icon: Calendar, text: "Agendamento de visitas" },
     ],
     gradient: "from-accent to-accent/70"
+  },
+  {
+    id: "comercio",
+    icon: ShoppingCart,
+    title: "Comércio",
+    description: "Atendimento automático e vendas pelo WhatsApp",
+    features: [
+      { icon: MessageSquare, text: "Atendimento automático 24h" },
+      { icon: CreditCard, text: "Vendas diretas pelo WhatsApp" },
+      { icon: FileText, text: "Registro automático de pedidos" },
+    ],
+    gradient: "from-primary to-accent"
   }
 ];
 
@@ -49,37 +61,40 @@ export const UseCases = () => {
         <ScrollReveal animation="fade-up">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-              Soluções para{" "}
+              Casos de{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
-                Seu Segmento
+                Uso
               </span>
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Automação personalizada para cada tipo de negócio
+              Veja como diferentes segmentos usam a MentoArk no dia a dia
             </p>
           </div>
         </ScrollReveal>
         
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
           {useCases.map((useCase, index) => {
             const Icon = useCase.icon;
             return (
               <ScrollReveal 
                 key={useCase.id}
                 animation="fade-up"
-                delay={index * 150}
+                delay={index * 100}
               >
                 <div className="glass rounded-3xl p-6 lg:p-8 hover:border-primary/50 transition-all duration-300 group h-full">
                   {/* Header */}
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${useCase.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-8 h-8 text-primary-foreground" />
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${useCase.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-8 h-8 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl lg:text-2xl font-bold text-foreground">{useCase.title}</h3>
+                      <p className="text-muted-foreground">{useCase.description}</p>
+                    </div>
                   </div>
                   
-                  <h3 className="text-xl lg:text-2xl font-bold mb-3 text-foreground">{useCase.title}</h3>
-                  <p className="text-muted-foreground mb-6">{useCase.description}</p>
-                  
                   {/* Features */}
-                  <ul className="space-y-4">
+                  <ul className="space-y-3">
                     {useCase.features.map((feature, featureIndex) => {
                       const FeatureIcon = feature.icon;
                       return (

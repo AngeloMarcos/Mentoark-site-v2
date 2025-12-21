@@ -1,10 +1,9 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { HowItWorks } from "@/components/HowItWorks";
-import { StatsCounter } from "@/components/StatsCounter";
+import { WhatWeDo } from "@/components/WhatWeDo";
+import { Solutions } from "@/components/Solutions";
+import { WhyMentoArk } from "@/components/WhyMentoArk";
 import { UseCases } from "@/components/UseCases";
-import { Differentials } from "@/components/Differentials";
-import { Benefits } from "@/components/Benefits";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
 import { FinalCTA } from "@/components/FinalCTA";
@@ -30,11 +29,10 @@ const Index = () => {
       
       <main className="pt-16 md:pt-20">
         <Hero onOpenChat={handleOpenChat} />
-        <HowItWorks />
-        <StatsCounter />
+        <WhatWeDo />
+        <Solutions onOpenChat={handleOpenChat} />
+        <WhyMentoArk />
         <UseCases />
-        <Differentials />
-        <Benefits />
         <Testimonials />
         <FAQ />
         <FinalCTA onOpenChat={handleOpenChat} />

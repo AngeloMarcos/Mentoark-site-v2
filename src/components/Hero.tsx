@@ -33,13 +33,13 @@ export const Hero = ({ onOpenChat }: HeroProps) => {
           <ScrollReveal animation="fade-up" duration={800}>
             <div className="text-center lg:text-left space-y-8">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                Transforme seu{" "}
-                <span className="bg-gradient-primary bg-clip-text text-transparent">WhatsApp</span>{" "}
-                em uma Secretária Digital 24h
+                Automação Inteligente e{" "}
+                <span className="bg-gradient-primary bg-clip-text text-transparent">Sistemas</span>{" "}
+                que Trabalham por Você
               </h1>
 
               <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0">
-                Automatize atendimentos, agendamentos e vendas no WhatsApp com integração total aos seus sistemas — sem erros e sem retrabalho.
+                Transforme seu WhatsApp em um canal automático de atendimento, vendas e gestão — com sistemas integrados que organizam seu negócio do começo ao fim.
               </p>
 
               {/* Bullets */}
@@ -48,19 +48,19 @@ export const Hero = ({ onOpenChat }: HeroProps) => {
                   <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                     <Clock className="w-5 h-5 text-primary" />
                   </div>
-                  <span className="text-foreground">Atendimento automático 24h por dia</span>
+                  <span className="text-foreground">Atendimento automático 24h no WhatsApp</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                     <Plug className="w-5 h-5 text-primary" />
                   </div>
-                  <span className="text-foreground">Integração com sistemas (prontuário, financeiro, PDV)</span>
+                  <span className="text-foreground">Sistemas próprios para clínicas, vendas e financeiro</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                     <CheckCircle className="w-5 h-5 text-primary" />
                   </div>
-                  <span className="text-foreground">Menos trabalho manual, mais controle</span>
+                  <span className="text-foreground">Menos trabalho manual, mais controle e eficiência</span>
                 </li>
               </ul>
 
@@ -81,7 +81,7 @@ export const Hero = ({ onOpenChat }: HeroProps) => {
                   className="text-lg px-8 h-14 border-primary/50 hover:bg-primary/10"
                   onClick={scrollToHowItWorks}
                 >
-                  Ver Demonstração
+                  Ver como funciona
                 </Button>
               </div>
             </div>
