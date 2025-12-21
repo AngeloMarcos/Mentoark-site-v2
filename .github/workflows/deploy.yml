@@ -1,0 +1,68 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Permite execução manual
+
+env:
+  IMAGE_NAME: mentoark-mentoark-site
+  IMAGE_TAG: latest
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout do código
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Build da imagem Docker com variáveis VITE_*
+      - name: Build Docker image
+        run: |
+          docker build \
+            --build-arg VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }} \
+            --build-arg VITE_SUPABASE_PUBLISHABLE_KEY=${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }} \
+            --build-arg VITE_API_URL=${{ secrets.VITE_API_URL }} \
+            --build-arg VITE_WHATSAPP_NUMBER="${{ secrets.VITE_WHATSAPP_NUMBER }}" \
+            --build-arg VITE_APP_ENV=production \
+            -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
+            .
+
+      # 3. Salva a imagem em arquivo tar.gz
+      - name: Save Docker image to file
+        run: |
+          docker save ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} | gzip > mentoark-image.tar.gz
+
+      # 4. Copia o arquivo para a VPS via SCP
+      - name: Copy image to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "mentoark-image.tar.gz"
+          target: "/tmp"
+
+      # 5. Conecta via SSH e faz o deploy
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            echo "📦 Carregando nova imagem..."
+            gunzip -c /tmp/mentoark-image.tar.gz | docker load
+
+            echo "🔄 Reiniciando container..."
+            cd /root
+            docker compose up -d mentoark-site
+
+            echo "🧹 Limpando imagem temporária..."
+            rm -f /tmp/mentoark-image.tar.gz
+
+            echo "✅ Deploy concluído!"
+            docker ps | grep mentoark-site
