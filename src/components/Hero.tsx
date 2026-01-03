@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock, Plug, CheckCircle } from "lucide-react";
+import { ArrowRight, Clock, Plug, CheckCircle, MessageCircle, MessageSquare, Send } from "lucide-react";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 interface HeroProps {
@@ -12,55 +12,52 @@ export const Hero = ({ onOpenChat }: HeroProps) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-20 bg-gradient-hero">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-20 bg-gradient-hero-teal">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-radial from-white/5 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_hsl(175_60%_30%/0.3)_0%,_transparent_50%)] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_left,_hsl(160_50%_25%/0.2)_0%,_transparent_50%)] pointer-events-none" />
 
-      {/* Floating Mascot */}
-      <div className="absolute top-32 right-10 hidden xl:block animate-float z-10">
-        <img
-          src="/images/mascote-mentoark.png"
-          alt="Mascote MentoArk"
-          className="w-48 h-48 object-contain drop-shadow-2xl"
-        />
-      </div>
-
-      <div className="container max-w-6xl mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container max-w-7xl mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Content */}
           <ScrollReveal animation="fade-up" duration={800}>
-            <div className="text-center lg:text-left space-y-8">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+            <div className="text-center lg:text-left space-y-6">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                <span className="text-sm text-white/90 font-medium">Automação que transforma negócios</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
                 Automação Inteligente e{" "}
-                <span className="bg-gradient-primary bg-clip-text text-transparent">Sistemas</span>{" "}
+                <span className="bg-gradient-to-r from-white via-teal-100 to-white bg-clip-text text-transparent">Sistemas</span>{" "}
                 que Trabalham por Você
               </h1>
 
-              <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0">
+              <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto lg:mx-0">
                 Transforme seu WhatsApp em um canal automático de atendimento, vendas e gestão — com sistemas integrados que organizam seu negócio do começo ao fim.
               </p>
 
               {/* Bullets */}
-              <ul className="space-y-4 text-left max-w-lg mx-auto lg:mx-0">
+              <ul className="space-y-3 text-left max-w-lg mx-auto lg:mx-0">
                 <li className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0 border border-white/20">
+                    <Clock className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-foreground">Atendimento automático 24h no WhatsApp</span>
+                  <span className="text-white/90">Atendimento automático 24h no WhatsApp</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Plug className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0 border border-white/20">
+                    <Plug className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-foreground">Sistemas próprios para clínicas, vendas e financeiro</span>
+                  <span className="text-white/90">Sistemas próprios para clínicas, vendas e financeiro</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0 border border-white/20">
+                    <CheckCircle className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-foreground">Menos trabalho manual, mais controle e eficiência</span>
+                  <span className="text-white/90">Menos trabalho manual, mais controle e eficiência</span>
                 </li>
               </ul>
 
@@ -68,7 +65,7 @@ export const Hero = ({ onOpenChat }: HeroProps) => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-accent hover:opacity-90 text-lg px-8 h-14 glow-orange"
+                  className="bg-white text-teal-800 hover:bg-white/90 text-lg px-8 h-14 shadow-xl shadow-black/20 font-semibold"
                   onClick={onOpenChat}
                 >
                   Falar com Especialista
@@ -78,7 +75,7 @@ export const Hero = ({ onOpenChat }: HeroProps) => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="text-lg px-8 h-14 border-primary/50 hover:bg-primary/10"
+                  className="text-lg px-8 h-14 border-white/30 bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
                   onClick={scrollToHowItWorks}
                 >
                   Ver como funciona
@@ -87,64 +84,50 @@ export const Hero = ({ onOpenChat }: HeroProps) => {
             </div>
           </ScrollReveal>
 
-          {/* Visual Flow Mockup */}
+          {/* Mascot with Floating Elements */}
           <ScrollReveal animation="slide-left" delay={200} duration={800}>
-            <div className="relative">
-              <div className="glass-strong rounded-3xl p-6 sm:p-8 shadow-elegant">
-                {/* WhatsApp Mockup */}
-                <div className="bg-secondary/50 rounded-2xl p-4 mb-6">
-                  <div className="flex items-center gap-3 mb-4 pb-3 border-b border-border/50">
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold text-sm">WA</span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground text-sm">Cliente no WhatsApp</p>
-                      <p className="text-xs text-muted-foreground">Online</p>
-                    </div>
-                  </div>
+            <div className="relative flex items-center justify-center">
+              {/* Main Mascot */}
+              <div className="relative">
+                <img
+                  src="/images/mascote-mentoark.png"
+                  alt="Mascote MentoArk - Robô de Automação"
+                  className="w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] object-contain drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)] animate-float"
+                />
+                
+                {/* Glow effect behind mascot */}
+                <div className="absolute inset-0 bg-gradient-radial from-white/20 via-transparent to-transparent blur-3xl -z-10" />
+              </div>
 
-                  <div className="space-y-3">
-                    <div className="flex justify-end">
-                      <div className="bg-primary/20 rounded-2xl rounded-br-sm px-4 py-2 max-w-[80%]">
-                        <p className="text-sm text-foreground">Olá, gostaria de agendar uma consulta</p>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-start">
-                      <div className="glass rounded-2xl rounded-bl-sm px-4 py-2 max-w-[80%]">
-                        <p className="text-sm text-foreground">
-                          Olá! Temos horários disponíveis para amanhã às 14h ou 16h. Qual prefere?
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-end">
-                      <div className="bg-primary/20 rounded-2xl rounded-br-sm px-4 py-2 max-w-[80%]">
-                        <p className="text-sm text-foreground">14h está ótimo!</p>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-start">
-                      <div className="glass rounded-2xl rounded-bl-sm px-4 py-2 max-w-[80%]">
-                        <p className="text-sm text-foreground">
-                          ✅ Agendado! Enviei a confirmação no seu email. Até amanhã!
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Result Badge */}
-                <div className="p-4 bg-accent/10 rounded-xl border border-accent/30 text-center">
-                  <p className="text-sm font-medium text-foreground">
-                    ✨ Tudo automático: agenda verificada, consulta registrada, email enviado
-                  </p>
+              {/* Floating Chat Icons */}
+              <div className="absolute top-4 right-4 lg:top-8 lg:right-8 animate-float" style={{ animationDelay: '0.5s' }}>
+                <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-xl">
+                  <MessageCircle className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
                 </div>
               </div>
 
-              {/* Decorative Elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-accent rounded-full blur-2xl opacity-30" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-primary rounded-full blur-2xl opacity-20" />
+              <div className="absolute top-1/4 -right-2 lg:right-0 animate-float" style={{ animationDelay: '1s' }}>
+                <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
+                  <MessageSquare className="w-6 h-6 lg:w-7 lg:h-7 text-white/90" />
+                </div>
+              </div>
+
+              <div className="absolute bottom-1/4 -left-2 lg:left-0 animate-float" style={{ animationDelay: '1.5s' }}>
+                <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
+                  <Send className="w-6 h-6 lg:w-7 lg:h-7 text-white/90" />
+                </div>
+              </div>
+
+              <div className="absolute bottom-8 right-8 lg:bottom-12 lg:right-12 animate-float" style={{ animationDelay: '2s' }}>
+                <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-lg bg-accent/80 backdrop-blur-md flex items-center justify-center border border-accent/50 shadow-lg shadow-accent/30">
+                  <CheckCircle className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
+                </div>
+              </div>
+
+              {/* Decorative Circles */}
+              <div className="absolute -top-8 left-1/4 w-4 h-4 rounded-full bg-white/30 animate-pulse" />
+              <div className="absolute top-1/3 -left-4 w-3 h-3 rounded-full bg-white/20 animate-pulse" style={{ animationDelay: '0.5s' }} />
+              <div className="absolute bottom-1/3 -right-4 w-5 h-5 rounded-full bg-accent/50 animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
           </ScrollReveal>
         </div>

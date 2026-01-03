@@ -45,6 +45,7 @@
     --gradient-accent: linear-gradient(135deg, hsl(24 95% 53%), hsl(24 95% 63%));
     --gradient-glow: radial-gradient(circle at 50% 0%, hsl(217 91% 60% / 0.2), transparent 50%);
     --gradient-hero: linear-gradient(180deg, hsl(222 47% 5%) 0%, hsl(222 47% 8%) 100%);
+    --gradient-hero-teal: linear-gradient(135deg, hsl(175 55% 22%) 0%, hsl(170 50% 28%) 35%, hsl(165 45% 32%) 70%, hsl(160 40% 35%) 100%);
     --gradient-section: linear-gradient(180deg, hsl(222 47% 8%) 0%, hsl(222 47% 5%) 100%);
     --gradient-cta: linear-gradient(135deg, hsl(217 91% 60% / 0.1), hsl(24 95% 53% / 0.1));
     
@@ -142,6 +143,11 @@
   
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
+  }
+  
+  /* Hero Teal Gradient */
+  .bg-gradient-hero-teal {
+    background: var(--gradient-hero-teal);
   }
 }
 
