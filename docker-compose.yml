@@ -1,23 +1,13 @@
 # ===========================================
-# MentoArk - Docker Compose para Produção
+# MentoArk - Serviço de site para Traefik
 # ===========================================
-# Uso:
-#   1. Crie um arquivo .env na mesma pasta com as variáveis
-#   2. docker-compose build
-#   3. docker-compose up -d
-#
-# Para Portainer:
-#   - Importe este arquivo como Stack
-#   - Configure as variáveis em "Environment variables"
-#
-# ===========================================
+
+version: "3.8"
 
 services:
   mentoark-site:
     build:
       context: .
-      # IMPORTANTE: Variáveis VITE_* são passadas em tempo de BUILD
-      # porque o Vite as incorpora no bundle JavaScript
       args:
         - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
         - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
@@ -26,40 +16,22 @@ services:
         - VITE_APP_ENV=${VITE_APP_ENV:-production}
     container_name: mentoark-site
     restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /etc/letsencrypt/live/mentoark.com.br:/certs:ro
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-    # Limites de recursos (ajuste conforme necessário)
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 256M
-        reservations:
-          cpus: '0.1'
-          memory: 64M
-    # ===========================================
-    # TRAEFIK (descomentar quando configurar)
-    # ===========================================
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.http.routers.mentoark.rule=Host(`site.mentoark.com.br`)"
-    #   - "traefik.http.routers.mentoark.entrypoints=websecure"
-    #   - "traefik.http.routers.mentoark.tls.certresolver=letsencrypt"
-    #   - "traefik.http.services.mentoark.loadbalancer.server.port=80"
-    # networks:
-    #   - traefik-network
-# ===========================================
-# TRAEFIK NETWORK (descomentar quando usar)
-# ===========================================
-# networks:
-#   traefik-network:
-#     external: true
+    # Sem ports diretos – o Traefik faz o proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mentoark.rule=Host(`${DOMAIN}`) || Host(`${DOMAIN_WWW}`)"
+      - "traefik.http.routers.mentoark.entrypoints=websecure"
+      - "traefik.http.routers.mentoark.tls.certresolver=letsencrypt"
+      - "traefik.http.services.mentoark.loadbalancer.server.port=80"
+      - "traefik.http.middlewares.mentoark-redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.mentoark-http.rule=Host(`${DOMAIN}`) || Host(`${DOMAIN_WWW}`)"
+      - "traefik.http.routers.mentoark-http.entrypoints=web"
+      - "traefik.http.routers.mentoark-http.middlewares=mentoark-redirect-https"
+    networks:
+      - mentoark
+    env_file:
+      - .env
+
+networks:
+  mentoark:
+    external: true
